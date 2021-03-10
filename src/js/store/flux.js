@@ -1,42 +1,71 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
+			getPerson: [],
+			getVehi: [],
+			getPlanet: [],
+			favorites: [],
+			personDetails: [],
+			vehicleDetails: [],
+			planetDetails: []
 		},
 		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
+			getPersonApi: async () => {
+				const settings = {
+					method: "GET",
+					headers: {
+						"Content-Type": "application.json"
+					}
+				};
+				const response = await fetch("https://www.swapi.tech/api/people/", settings);
+				const json = await response.json();
+
+				console.log(json, "<-Aqui");
+
+				setStore({ getPerson: json.results });
 			},
-			loadSomeData: () => {
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
+
+			getVehiApi: async () => {
+				const settings = {
+					method: "GET",
+					headers: {
+						"Content-Type": "application.json"
+					}
+				};
+				const response = await fetch("https://www.swapi.tech/api/starships", settings);
+				const json = await response.json();
+
+				setStore({ getVehi: json.results });
 			},
-			changeColor: (index, color) => {
-				//get the store
+
+			getPlanetApi: async () => {
+				const settings = {
+					method: "GET",
+					headers: {
+						"Content-Type": "application.json"
+					}
+				};
+				const response = await fetch("https://www.swapi.tech/api/planets", settings);
+				const json = await response.json();
+
+				setStore({ getPlanet: json.results });
+			},
+
+			personDetailsApi: async id => {
+				const settings = {
+					method: "GET",
+					headers: {
+						"Content-Type": "application.json"
+					}
+				};
+				const response = await fetch(`https://www.swapi.tech/api/people/${id}`, settings);
+				const json = await response.json();
+				setStore({ personDetails: json.results });
+			},
+
+			addfavorites: item => {
 				const store = getStore();
-
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
-
-				//reset the global store
-				setStore({ demo: demo });
+				setStore({ favorites: [...store.favorites, item] });
 			}
 		}
 	};
