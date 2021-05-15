@@ -36,7 +36,11 @@ const PlanetCardList = () => {
 										actions.addfavorites(item.name);
 									}}>
 									<button type="button" className="btn btn-light btn-sm">
-										<i className="far fa-heart fa-2x" />
+										{store.favorites.includes(item.name) ? (
+											<i className="fas fa-heart fa-2x" style={{ color: "#F7DC6F" }} />
+										) : (
+											<i className="far fa-heart fa-2x" />
+										)}
 									</button>
 								</a>
 							</div>

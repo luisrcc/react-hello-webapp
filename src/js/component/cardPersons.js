@@ -1,12 +1,15 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 
-const PersonCardList = () => {
+const PersonCardList = p => {
 	const { store, actions } = useContext(Context);
 	useEffect(() => {
 		actions.getPersonApi();
 	}, []);
+	const [selected, setSelected] = useState({
+		heart: "far fa-heart fa-2x"
+	});
 	//console.log(store.favorites);
 	return (
 		<div className="cards">
@@ -26,7 +29,7 @@ const PersonCardList = () => {
 						<div className="card-body">
 							<h4 className="card-title">{item.name}</h4>
 							<Link
-								to={"/viewPersons/" + item.name}
+								to={"/viewPersons2/" + item.name}
 								className="btn btn-primary"
 								onClick={() => actions.getPersonApi(item.url)}>
 								Learn More
@@ -36,7 +39,11 @@ const PersonCardList = () => {
 									actions.addfavorites(item.name);
 								}}>
 								<button type="button" className="btn btn-light btn-sm">
-									<i className="far fa-heart fa-2x" />
+									{store.favorites.includes(item.name) ? (
+										<i className="fas fa-heart fa-2x" style={{ color: "#F7DC6F" }} />
+									) : (
+										<i className="far fa-heart fa-2x" />
+									)}
 								</button>
 							</a>
 						</div>
