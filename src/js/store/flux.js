@@ -5,7 +5,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getVehi: [],
 			getPlanet: [],
 			favorites: [],
-			personDetails: [],
+			characterDetail: {},
 			vehicleDetails: [],
 			planetDetails: []
 		},
@@ -51,17 +51,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ getPlanet: json.results });
 			},
 
-			personDetailsApi: async id => {
-				const settings = {
-					method: "GET",
-					headers: {
-						"Content-Type": "application.json"
-					}
-				};
-				const response = await fetch(`https://www.swapi.tech/api/people/${id}`, settings);
-				const json = await response.json();
-				setStore({ personDetails: json.results });
-			},
+			// getCharacterDetail: async id => {
+			// 	const settings = {
+			// 		method: "GET",
+			// 		headers: {
+			// 			"Content-Type": "application/json"
+			// 		}
+			// 	};
+			// 	const response = await fetch(`https://www.swapi.tech/api/people/${id}`, settings);
+			// 	const json = await response.json();
+			// 	setStore({ characterDetail: json.result });
+			// },
 
 			addfavorites: item => {
 				const store = getStore();

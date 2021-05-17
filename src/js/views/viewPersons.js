@@ -1,7 +1,8 @@
 import React, { useEffect, useContext, useState } from "react";
 import { Context } from "../store/appContext";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import PropType from "prop-types";
+import BackToHome from "../component/BackToHome";
 
 const viewPersons = ({ url, name, gender, hair_color, skin_color }) => {
 	const { store, actions } = useContext(Context);
@@ -29,7 +30,7 @@ const viewPersons = ({ url, name, gender, hair_color, skin_color }) => {
 						</div>
 						<div className="col-8">
 							<div className="card-body">
-								{/* <h5>{store.personDetailsApi ? store.personDetailsApi.name : ""}</h5> */}
+								<h5>{store.personDetailsApi ? store.personDetailsApi.name : ""}</h5>
 								<li className="list-group-item">
 									<strong>Name: </strong>
 									{item.name}
@@ -45,7 +46,7 @@ const viewPersons = ({ url, name, gender, hair_color, skin_color }) => {
 									versions have evolved over the years, sometimes by accident, sometimes on purpose
 									(injected humour and the like).
 								</p>
-								<div>
+								{/* <div>
 									<ul className="list-group list-group-flush">
 										<li className="list-group-item">
 											<strong>Gender: </strong>
@@ -60,7 +61,10 @@ const viewPersons = ({ url, name, gender, hair_color, skin_color }) => {
 											{item.skin_color}
 										</li>
 									</ul>
-								</div>
+								</div> */}
+								{/* <Link>
+									<BackToHome />
+								</Link> */}
 							</div>
 						</div>
 					</div>

@@ -26,9 +26,9 @@ const PlanetCardList = () => {
 							<div className="card-body">
 								<h4 className="card-title">{item.name}</h4>
 								<Link
-									to={"/viewPersons/" + item.name}
+									to={"/viewPlanet/" + item.name}
 									className="btn btn-primary"
-									onClick={() => actions.getPersonApi(item.url)}>
+									onClick={() => actions.getPlanetApi(item.url)}>
 									Learn More
 								</Link>
 								<a

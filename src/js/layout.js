@@ -10,7 +10,9 @@ import PersonCardList from "./component/cardPersons";
 import VehiCardList from "./component/cardVehi";
 import PlanetCardList from "./component/cardPlanet";
 import "../styles/style.css";
-import viewPersons from "./views/viewPersons";
+import viewPersons2 from "./views/viewPersons2";
+import viewPlanet from "./views/viewPlanet";
+import viewShip from "./views/viewStarship";
 
 //create your first component
 const Layout = () => {
@@ -31,6 +33,7 @@ const Layout = () => {
 							</div>
 							<div className="container">
 								<VehiCardList />
+
 								<br />
 							</div>
 							<div className="container">
@@ -38,11 +41,9 @@ const Layout = () => {
 								<br />
 							</div>
 						</Route>
-						<Route exact path="/viewPersons/:name" component={viewPersons} />
-
-						<Route exact path="">
-							<Demo />
-						</Route>
+						<Route exact path="/viewPersons2/:id" component={viewPersons2} />
+						<Route exact path="/viewShip/:id" component={viewShip} />
+						<Route exact path="/viewPlanet/:id" component={viewPlanet} />
 						<Route exact path="/single/:theid">
 							<Single />
 						</Route>

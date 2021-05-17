@@ -1,89 +1,81 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import "../../styles/home.scss";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams, withRouter } from "react-router-dom";
+import Link from "react-dom";
+import BackToHome from "../component/BackToHome";
 
-export const Characters = () => {
-	const [data, setData] = useState(null);
+function viewPerson2(props) {
 	const { id } = useParams();
+	const [person, setPerson] = useState({});
 
-	// useEffect(
-	// 	async () => {
-	// 		const response = await fetch(`https://swapi.dev/api/people/${id}/`);
-	// 		const json = await response.json();
-	// 		const data = json;
-	// 		console.log(data, "<--JSON Characters");
+	const url = `http://swapi.dev/api/planets/${id}/`;
 
-	// 		setData(data);
-	// 	},
-	// 	[id]
-	// );
+	const getPerson = async () => {
+		try {
+			const response = await fetch(url);
+			const data = await response.json();
+			console.log(data);
+			setPerson(data);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	useEffect(() => {
-		async function fetchData() {
-			try {
-				const response = await fetch(`https://swapi.dev/api/people/${id}/`);
-				const json = await response.json();
-				const data = json;
-				setData(data);
-			} catch (e) {
-				console.error(e);
-			}
-		}
-		fetchData();
+		getPerson();
 	}, []);
 
-	if (!data) return null;
-	return (
-		<div className="container">
-			<div className="row">
-				<div className="col-6">
-					<div>
-						<img
-							src="https://s2.glbimg.com/LttsvVoQZGHoIJsmdlXMULY336A=/e.glbimg.com/og/ed/f/original/2019/09/23/ea1e16061bdf92edb111d8808c6741a6.jpg"
-							className="card-img-top"
-							alt="Luke Skywalker"
-						/>
-					</div>
-					<br />
-				</div>
-				<div className="col-6">
-					<div>
-						<h2 className="CharactersView" style={{ color: "red" }}>
-							A long time ago in a galaxy far, far away....
-						</h2>
-					</div>
-				</div>
+	// const EnviarAtras = () => {
+	// 	props.goBack();
+	// };
 
-				<table className="table table-dark">
-					<thead className="thead-dark">
-						<tr className="tr" style={{ textAlign: "center" }}>
-							<th scope="col">Name</th>
-							<th scope="col">Birth Year</th>
-							<th scope="col">Gender</th>
-							<th scope="col">Height</th>
-							<th scope="col">Skin Color</th>
-							<th scope="col">Eye Color</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr className="tr" style={{ textAlign: "center" }}>
-							<th scope="row">{data.name}</th>
-							<td>{data.birth_year}</td>
-							<td>{data.gender}</td>
-							<td>{data.height}</td>
-							<td>{data.skin_color}</td>
-							<td>{data.eye_color}</td>
-						</tr>
-					</tbody>
-				</table>
+	return (
+		<div className="row d-flex justify-content-center mt-5">
+			<div className="col-md-8  d-flex flex-md-grow justify-content-start">
+				<div className="card col-md-6" style={{ width: "18rem" }}>
+					<img
+						src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR776tS4HckzIxCTwFFuPFx6-puhOQSXAUhgg&usqp=CAU"
+						className="card-img-top mt-3"
+						alt="imagen de prueba"
+						onError={e => {
+							e.target.onerror = null;
+							e.target.src = Imagen;
+						}}
+					/>
+				</div>
+				<div className="card col-md-6 ml-3" style={{ width: "18rem" }}>
+					<div className="card-body">
+						<h5 className="card-title">
+							<b>{person.name}</b>
+						</h5>
+						<p className="card-text">
+							<u>Height:</u> {person.height}
+						</p>
+						<p className="card-text">
+							{" "}
+							<u>Mass:</u> {person.mass}
+						</p>
+						<p className="card-text">
+							<u>Hair Color:</u> {person.hair_color}
+						</p>
+						<p className="card-text">
+							<u>Skin Color:</u> {person.skin_color}
+						</p>
+						<p className="card-text">
+							<u>Eye Color:</u> {person.eye_color}
+						</p>
+						<p className="card-text">
+							<u>Birth Year:</u> {person.birth_year}
+						</p>
+					</div>
+				</div>
 			</div>
-			<Link to="/">
-				<span className="btn btn-primary btn-lg" role="button">
-					Back to Star Wars Home
-				</span>
-			</Link>
+			{/* <div>
+                <button className="btn btn-primary" to="/">
+                    Back to Home
+			</button>
+            </div> */}
 		</div>
 	);
-};
+}
+
+export default viewPerson2;
